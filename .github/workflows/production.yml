@@ -12,7 +12,6 @@ on:
                 - dev
                 - testing
                 - prod
-                - all
 
 jobs:
   deploy:
