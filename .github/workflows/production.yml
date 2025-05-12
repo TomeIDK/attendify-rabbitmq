@@ -1,0 +1,54 @@
+# Production CI/CD
+name: RabbitMQ Deployments
+
+on:
+  workflow_dispatch:
+    inputs:
+        environment:
+            description: 'Choose the environment to deploy'
+            required: true
+            type: choice
+            options:
+                - dev
+                - testing
+                - prod
+                - all
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+
+      - name: Set environment variable
+        run: echo "Deploying to ${{ github.event.inputs.environment }} environment"
+      
+      - name: Deploy to server
+        run: |
+          ssh -o StrictHostKeyChecking=no -p ${{ secrets.PROD_SSH_PORT }} ${{ secrets.PROD_SSH_USERNAME }}@${{ secrets.PROD_SSH_HOST }} << 'EOF'
+            set -e
+            cd /home/ehbstudent/attendify/attendify-rabbitmq
+            git pull origin main
+
+            if [ "${{ github.event.inputs.environment }}" == "dev" ]; then
+                ./deploy.sh dev
+            elif [ "${{ github.event.inputs.environment }}" == "testing" ]; then
+                ./deploy.sh testing
+            elif [ "${{ github.event.inputs.environment }}" == "prod" ]; then
+                ./deploy.sh prod
+            elif [ "${{ github.event.inputs.environment }}" == "all" ]; then
+                ./deploy.sh dev
+                ./deploy.sh testing
+                ./deploy.sh prod
+            fi
+          EOF

@@ -1,14 +1,22 @@
 import os
+import sys
 from pathlib import Path
 import pika
 from dotenv import load_dotenv
 
-print("Creating exchanges, queues and routing keys...")
-
 env_path = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(os.getenv("RABBITMQ_HOST"), os.getenv("RABBITMQ_PORT"), os.getenv("RABBITMQ_VHOST"), pika.PlainCredentials(os.getenv("RABBITMQ_USER"), os.getenv("RABBITMQ_PASSWORD"))))
+if len(sys.argv) > 1:
+    port = sys.argv[1]
+    print(f"Port provided: {port}")
+else:
+    port = os.getenv("RABBITMQ_PORT")
+    print(f"No port provided, defaulting to port {port}.")
+
+print("Creating exchanges, queues and routing keys...")
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(os.getenv("RABBITMQ_HOST"), port, os.getenv("RABBITMQ_VHOST"), pika.PlainCredentials(os.getenv("RABBITMQ_USER"), os.getenv("RABBITMQ_PASSWORD"))))
 channel = connection.channel()
 
 

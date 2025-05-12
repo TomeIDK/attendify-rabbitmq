@@ -1,0 +1,23 @@
+include:
+    - ./attendify-billing/docker-compose.prod.yml
+    - ./Attendify_CRM/docker-compose.yml
+    # - ./attendify-frontend/docker-compose.yaml
+networks:
+  attendify_net:
+    external: true
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: some-rabbit
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+      RABBITMQ_DEFAULT_USER: attendify
+      RABBITMQ_DEFAULT_VHOST: attendify
+    ports:
+      - "30000:15672"
+      - "30001:5672"
+    volumes:
+      - ./rabbitmq/volumes/rabbitmq/data:/var/lib/rabbitmq
+    networks:
+      - attendify_net
