@@ -46,9 +46,5 @@ jobs:
                 ./deploy.sh testing
             elif [ "${{ github.event.inputs.environment }}" == "prod" ]; then
                 ./deploy.sh prod
-            elif [ "${{ github.event.inputs.environment }}" == "all" ]; then
-                ./deploy.sh dev
-                ./deploy.sh testing
-                ./deploy.sh prod
             fi
           EOF
