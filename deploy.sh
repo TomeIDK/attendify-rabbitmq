@@ -34,8 +34,9 @@ deploy() {
 
     # restart services
     cd "$(dirname "$target_path")"
-    docker-compose down
-    docker-compose up -d
+    echo "$(dirname "$target_path")"
+    docker compose down
+    docker compose up -d
 
     echo "$ENV environment deployed and services restarted."
 
