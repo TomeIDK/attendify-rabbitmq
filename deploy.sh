@@ -34,7 +34,6 @@ deploy() {
 
     # restart services
     cd "$(dirname "$target_path")"
-    echo "$(dirname "$target_path")"
     docker compose down
     docker compose up -d
 

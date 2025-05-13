@@ -7,9 +7,6 @@ from dotenv import load_dotenv
 env_path = Path(__file__).resolve().parent/ ".env"
 load_dotenv(dotenv_path=env_path)
 
-print("RABBITMQ_HOST:", os.getenv("RABBITMQ_HOST"))
-print("RABBITMQ_USER:", os.getenv("RABBITMQ_USER"))
-
 if len(sys.argv) > 1:
     port = sys.argv[1]
     print(f"Port provided: {port}")
