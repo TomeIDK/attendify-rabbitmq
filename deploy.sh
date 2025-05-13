@@ -50,6 +50,8 @@ deploy() {
     fi
 
     cd "$REPO_DIR"
+    echo $(pwd)
+    echo $REPO_DIR
     python3 -m venv myenv
     source myenv/bin/activate
     pip install pika
