@@ -1,5 +1,5 @@
 include:
-    # - ./attendify-billing/docker-compose.prod.yml
+    - ./testing-Billing/attendify-billing/docker-compose.testing.yml
     # - ./Attendify_CRM/docker-compose.yml
     # - ./attendify-frontend/docker-compose.yaml
 networks:
