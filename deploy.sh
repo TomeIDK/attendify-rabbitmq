@@ -49,7 +49,7 @@ deploy() {
         port=30001
     fi
 
-    cd "$(dirname "$REPO_DIR")"
+    cd "$REPO_DIR"
     python3 -m venv myenv
     source myenv/bin/activate
     pip install pika
