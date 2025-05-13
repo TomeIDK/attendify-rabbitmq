@@ -53,7 +53,7 @@ deploy() {
     source myenv/bin/activate
     pip install pika
     pip install dotenv
-    python3 "$REPO_DIR/configure.py" "$port"
+    python3 configure.py $port
     deactivate
 
     echo "Configured $ENV environment."
