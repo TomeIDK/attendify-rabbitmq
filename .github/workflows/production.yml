@@ -33,16 +33,17 @@ jobs:
       
       - name: Deploy to server
         run: |
-          ssh -o StrictHostKeyChecking=no -p ${{ secrets.PROD_SSH_PORT }} ${{ secrets.PROD_SSH_USERNAME }}@${{ secrets.PROD_SSH_HOST }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no -p ${{ secrets.PROD_SSH_PORT }} ${{ secrets.PROD_SSH_USERNAME }}@${{ secrets.PROD_SSH_HOST }} \
+          "SUDO_PASSWORD='${{ secrets.PROD_SUDO_PASSWORD }}' ENVIRONMENT='${{ github.event.inputs.environment }}' bash -s" << 'EOF'
             set -e
+            set +x
             cd /home/ehbstudent/attendify/attendify-rabbitmq
             git pull origin main
             chmod +x deploy.sh
-
-            if [ "${{ github.event.inputs.environment }}" == "testing" ]; then
-                ./deploy.sh testing
-            elif [ "${{ github.event.inputs.environment }}" == "prod" ]; then
-                ./deploy.sh prod
+            if [ "$ENVIRONMENT" == "testing" ]; then
+                echo "$SUDO_PASSWORD" | sudo -S ./deploy.sh testing
+            elif [ "$ENVIRONMENT" == "prod" ]; then
+                echo "$SUDO_PASSWORD" | sudo -S ./deploy.sh prod
             fi
             chmod -x deploy.sh
 
