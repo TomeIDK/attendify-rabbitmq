@@ -38,28 +38,6 @@ deploy() {
     docker compose up -d
 
     echo "$ENV environment deployed and services restarted."
-
-    # configure the rabbitmq
-    echo "Running configure.py for $ENV environment."
-
-    local port
-    if [ "$ENV" == "testing" ]; then
-        port=30097
-    elif [ "$ENV" == "prod" ]; then
-        port=30001
-    fi
-
-    cd "$REPO_DIR"
-    echo $(pwd)
-    echo $REPO_DIR
-    python3 -m venv myenv
-    source myenv/bin/activate
-    pip install pika
-    pip install dotenv
-    python3 configure.py $port
-    deactivate
-
-    echo "Configured $ENV environment."
 }
 
 case "$ENV" in
