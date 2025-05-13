@@ -5,7 +5,7 @@ TARGET_DIR="/home/ehbstudent/attendify"
 ENV=$1
 
 if [[ -z "$ENV" ]]; then
-    echo "Usage: ./deploy.sh [dev|testing|prod]"
+    echo "Usage: ./deploy.sh [testing|prod]"
     exit 1
 fi
 
@@ -43,9 +43,7 @@ deploy() {
     echo "Running configure.py for $ENV environment."
 
     local port
-    if [ "$ENV" == "dev" ]; then
-        port=30099
-    elif [ "$ENV" == "testing" ]; then
+    if [ "$ENV" == "testing" ]; then
         port=30097
     elif [ "$ENV" == "prod" ]; then
         port=30001
@@ -56,9 +54,6 @@ deploy() {
 }
 
 case "$ENV" in
-    dev)
-        deploy "dev-environment"
-        ;;
     testing)
         deploy "test-environment"
         ;;
@@ -66,7 +61,7 @@ case "$ENV" in
         deploy
         ;;
     *)
-        echo "Invalid environment: $ENV. Use [dev|testing|prod]."
+        echo "Invalid environment: $ENV. Use [testing|prod]."
         exit 1
         ;;
 esac

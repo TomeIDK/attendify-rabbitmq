@@ -9,7 +9,6 @@ on:
             required: true
             type: choice
             options:
-                - dev
                 - testing
                 - prod
 
@@ -39,9 +38,7 @@ jobs:
             cd /home/ehbstudent/attendify/attendify-rabbitmq
             git pull origin main
 
-            if [ "${{ github.event.inputs.environment }}" == "dev" ]; then
-                ./deploy.sh dev
-            elif [ "${{ github.event.inputs.environment }}" == "testing" ]; then
+            if [ "${{ github.event.inputs.environment }}" == "testing" ]; then
                 ./deploy.sh testing
             elif [ "${{ github.event.inputs.environment }}" == "prod" ]; then
                 ./deploy.sh prod
