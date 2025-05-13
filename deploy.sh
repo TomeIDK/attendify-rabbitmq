@@ -48,7 +48,9 @@ deploy() {
     elif [ "$ENV" == "prod" ]; then
         port=30001
     fi
+    source myenv/bin/activate
     python3 "$REPO_DIR/configure.py" "$port"
+    deactivate
 
     echo "Configured $ENV environment."
 }
