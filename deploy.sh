@@ -48,9 +48,10 @@ deploy() {
     elif [ "$ENV" == "prod" ]; then
         port=30001
     fi
-    
+
     python3 -m venv myenv
     source myenv/bin/activate
+    pip install pika
     python3 "$REPO_DIR/configure.py" "$port"
     deactivate
 
