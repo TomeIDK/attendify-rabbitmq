@@ -51,6 +51,8 @@ deploy() {
 
     python3 -m venv myenv
     source myenv/bin/activate
+    pip install pika
+    pip install dotenv
     python3 "$REPO_DIR/configure.py" "$port"
     deactivate
 
