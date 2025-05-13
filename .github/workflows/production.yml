@@ -37,10 +37,13 @@ jobs:
             set -e
             cd /home/ehbstudent/attendify/attendify-rabbitmq
             git pull origin main
+            chmod +x deploy.sh
 
             if [ "${{ github.event.inputs.environment }}" == "testing" ]; then
                 ./deploy.sh testing
             elif [ "${{ github.event.inputs.environment }}" == "prod" ]; then
                 ./deploy.sh prod
             fi
+            chmod -x deploy.sh
+
           EOF
