@@ -1,7 +1,9 @@
 include:
     - ./testing-Billing/attendify-billing/docker-compose.testing.yml
-    # - ./Attendify_CRM/docker-compose.yml
-    # - ./attendify-frontend/docker-compose.yaml
+    - ./testing-Frontend/attendify-frontend/docker-compose.yaml
+    - ./testing-Frontend/attendify-frontend/docker-compose.test.yaml
+    - ./testing-Planning/attendify-planning/planning/docker-compose.yml
+    - ./testing-Planning/attendify-planning/planning/docker-compose.test.yml
 networks:
   attendify_net_testing:
     driver: bridge
