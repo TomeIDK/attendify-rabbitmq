@@ -5,7 +5,6 @@ include:
     - ./attendify-planning/planning/docker-compose.prod.yml
     - ./attendify-planning/planning/docker-compose.yml
     - ./Attendify_CRM/docker-compose.yml
-    # - ./attendify-frontend/docker-compose.yaml
 networks:
   attendify_net:
     external: true
