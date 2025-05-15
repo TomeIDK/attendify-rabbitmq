@@ -1,3 +1,6 @@
+networks:
+  attendify_net:
+    external: true
 include:
     - ./attendify-billing/docker-compose.prod.yml
     - ./attendify-frontend/docker-compose.yml
@@ -5,9 +8,6 @@ include:
     - ./attendify-planning/planning/docker-compose.prod.yml
     - ./attendify-planning/planning/docker-compose.yml
     - ./Attendify_CRM/docker-compose.yml
-networks:
-  attendify_net:
-    external: true
 services:
   rabbitmq:
     image: rabbitmq:4-management
