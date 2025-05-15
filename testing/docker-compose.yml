@@ -1,6 +1,6 @@
 networks:
   attendify_net_testing:
-    driver: bridge
+    external: true
 include:
     - ./testing-Billing/attendify-billing/docker-compose.testing.yml
     - ./testing-Frontend/attendify-frontend/docker-compose.yaml
