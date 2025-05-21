@@ -166,6 +166,7 @@ channel.queue_bind(queue="planning.company", exchange="company", routing_key="co
 
 channel.queue_declare(queue='planning.event', durable=True)
 channel.queue_bind(queue="planning.event", exchange="event", routing_key="event.register")
+channel.queue_bind(queue="planning.event", exchange="event", routing_key="event.create")
 channel.queue_bind(queue="planning.event", exchange="event", routing_key="event.update")
 channel.queue_bind(queue="planning.event", exchange="event", routing_key="event.unregister")
 channel.queue_bind(queue="planning.event", exchange="event", routing_key="event.delete")
